@@ -1,20 +1,63 @@
 <template>
   <div class="hello">
-    <h1>{{ text1 }}</h1>
-    <h2 v-html="text2"></h2>
-    <div :id="text3"></div>
+  <swiper 
+    :modules="modules"
+    navigation
+    :pagination="{ clickable: true }"
+    @swiper="onSwiper"
+    @slideChange="onSlideChange"
+    :autoplay="{
+      delay: 2500,
+      disableOnInteraction: false,
+    }"
+  >
+      <swiper-slide>
+        <img src="../assets/tp5.jpg" alt="">
+      </swiper-slide>
+      <swiper-slide>
+        <img src="../assets/tp2.jpg" alt="">
+      </swiper-slide>
+      <swiper-slide>
+        <img src="../assets/tp3.jpg" alt="">
+      </swiper-slide>
+      <swiper-slide>
+        <img src="../assets/tp4.jpg" alt="">
+      </swiper-slide>
+  </swiper>
   </div>
 </template>
 
 <script>
+import { Autoplay, Navigation, Pagination, A11y } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+
 export default {
-  name: 'HelloWorld',
-  data(){
-    return{
-      text1: "早上好",
-      text2: "下午好",
-      text3: "晚上好",
-    }
-  }
-}
+    components: {
+      Swiper,
+      SwiperSlide,
+    },
+    setup() {
+      const onSwiper = (swiper) => {
+        console.log(swiper);
+      };
+      const onSlideChange = () => {
+        console.log('slide change');
+      };
+      return {
+        onSwiper,
+        onSlideChange,
+        modules: [Autoplay,Navigation, Pagination, A11y],
+      };
+    },
+  };
 </script>
+
+<style scoped>
+img{
+  width: 100%;
+}
+</style>
